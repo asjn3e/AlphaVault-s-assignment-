@@ -1,0 +1,16 @@
+{
+  "name": "alpha-vaults--backend",
+  "version": "1.0.0",
+  "description": "a bridge between front-end and wallet data that transfers balance and other information to front-end",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "author": "asjn3e",
+  "license": "ISC",
+  "dependencies": {
+    "@moralisweb3/common-evm-utils": "^2.18.4",
+    "express": "^4.18.2",
+    "moralis": "^2.18.4"
+  }
+}
