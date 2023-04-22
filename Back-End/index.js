@@ -5,7 +5,7 @@ const Moralis = require("moralis").default;
 const { EvmChain } = require("@moralisweb3/common-evm-utils");
 
 const app = express();
-const port = 3000;
+const port = 5000;
 
 // Add a variable for the api key, address and chain
 const MORALIS_API_KEY =
@@ -13,10 +13,11 @@ const MORALIS_API_KEY =
 const address = "0x5199d6204B788016353A201b8DAd4668a71F1A8a";
 const chain = EvmChain.ETHEREUM;
 
-app.get("/", async (req, res) => {
+app.get("/wallet/:walletAddress/:chain", async (req, res) => {
   try {
     // Get and return the crypto data
-    const data = await getDemoData();
+    const data = await getData();
+
     res.status(200);
     res.json(data);
   } catch (error) {
@@ -37,7 +38,8 @@ const startServer = async () => {
 // Call startServer()
 startServer();
 
-async function getDemoData() {
+//Getting the data (balance and price of the coin)
+async function getData() {
   await Moralis.start({
     apiKey: MORALIS_API_KEY,
   });
@@ -47,9 +49,18 @@ async function getDemoData() {
     address,
     chain,
   });
-  console.log(tokenBalances);
-  // Format the balances to a readable output with the .display() method
-  
-  // Add tokens to the output
-  return { tokenBalances };
+  let token = tokenBalances.raw.filter((token) => token.possible_spam != true);
+  for (let i = 0; i <= token.length; i++) {
+    if (token[i]) {
+      const response = await Moralis.EvmApi.token.getTokenPrice({
+        address: token[i].token_address,
+        chain,
+      });
+      token[i].price = response.raw.usdPrice;
+    }
+  }
+
+  //Getting tokens balances
+
+  return token;
 }
