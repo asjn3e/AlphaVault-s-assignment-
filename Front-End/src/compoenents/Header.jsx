@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { useState } from "react";
 
-function Header() {
+function Header({ connectionHandler, isConnected }) {
   return (
     <div className="header">
       {/* logo */}
@@ -15,8 +15,13 @@ function Header() {
           <p className="chain__text">chain</p>
           <img src="/ethereum.png" className="chain__image" alt="" />
         </button>
-        <button className="header__button connectBTN">
-          <p className="connect__text">Connect wallet</p>
+        <button
+          onClick={connectionHandler}
+          className="header__button connectBTN"
+        >
+          <p className="connect__text">
+            {isConnected ? "disconnect wallet" : "connect wallet"}
+          </p>
 
           <img src="/metamask-seeklogo.com.svg" alt="s" />
         </button>

@@ -5,10 +5,16 @@ import { init } from "./canvasUtlis";
 import WalletInfo from "./compoenents/WalletInfo";
 import Tokens from "./compoenents/Tokens";
 import ChainSelector from "./compoenents/ChainSelector";
-function App() {
-  const [isSelectorActive, setIsselctorActive] = useState(true);
+import { requestAccounts } from "./metamask";
+import Web3 from "web3";
 
+function App() {
+  const [isSelectorActive, setIsselctorActive] = useState(false);
+  const [chain, setChain] = useState("ETH");
+  const [isConnected, setIsConnected] = useState(false);
+  const [walletAdress, setWalletAdress] = useState(null);
   const canvasRef = useRef(null);
+  const [web3, setWeb3] = useState(new Web3(window.ethereum));
   //use effect for running canvas animation
   useEffect(() => {
     let ctx = canvasRef.current.getContext("2d"); //geting canvas api
@@ -28,12 +34,30 @@ function App() {
     animate();
   }, []);
 
+  //event for connecton to meta mask and getting the wallet address
+  const handleConnection = async () => {
+    if (isConnected) {
+      console.log(window.ethereum);
+      setIsConnected(false);
+    } else {
+      await requestAccounts();
+      const account = await web3.eth.getAccounts(); //getting the walllet address
+      console.log(account);
+      if (account) {
+        setIsConnected(true);
+        setWalletAdress(account);
+      }
+    }
+  };
   return (
     <div className="Container">
       {/* canvas animation */}
       <canvas className="canvas" ref={canvasRef}></canvas>
       {/* header */}
-      <Header></Header>
+      <Header
+        connectionHandler={handleConnection}
+        isConnected={isConnected}
+      ></Header>
       {/* wallet information */}
       <WalletInfo />
       {/* tokens */}
