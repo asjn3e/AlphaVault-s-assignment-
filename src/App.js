@@ -10,7 +10,7 @@ import Web3 from "web3";
 import axios from "axios";
 
 function App() {
-  // app's states 
+  // app's states
   const [isSelectorActive, setIsselctorActive] = useState(false);
   const [chain, setChain] = useState("eth");
   const [isConnected, setIsConnected] = useState(false);
@@ -19,10 +19,9 @@ function App() {
   const [taotalBalance, setTotalBalance] = useState(0);
   const [web3, setWeb3] = useState(new Web3(window.ethereum));
 
-  // app's refrences 
+  // app's refrences
   const canvasRef = useRef(null);
 
-  
   //use effect for running canvas animation
   useEffect(() => {
     let ctx = canvasRef.current.getContext("2d"); //geting canvas api
@@ -42,7 +41,6 @@ function App() {
     animate();
   }, []);
 
-
   //event for connecton to meta mask and getting the wallet address
   const handleConnection = async () => {
     if (isConnected) {
@@ -56,7 +54,7 @@ function App() {
         setwalletAddress(account);
         try {
           const Tokens = await axios.get(
-            `http://localhost:5000/wallet/${account}/${chain}`
+            `https://rich-blue-octopus-wrap.cyclic.app/wallet/${account}/${chain}`
           );
           setTokens(Tokens.data);
 
@@ -85,7 +83,7 @@ function App() {
         setwalletAddress(account);
         try {
           const Tokens = await axios.get(
-            `http://localhost:5000/wallet/${account}/${chain}`
+            `https://rich-blue-octopus-wrap.cyclic.app/wallet/${account}/${chain}`
           );
           setTokens(Tokens.data);
 
