@@ -7,12 +7,14 @@ import Tokens from "./compoenents/Tokens";
 import ChainSelector from "./compoenents/ChainSelector";
 import { requestAccounts } from "./metamask";
 import Web3 from "web3";
+import axios from "axios";
 
 function App() {
   const [isSelectorActive, setIsselctorActive] = useState(false);
-  const [chain, setChain] = useState("ETH");
+  const [chain, setChain] = useState("eth");
   const [isConnected, setIsConnected] = useState(false);
-  const [walletAdress, setWalletAdress] = useState(null);
+  const [walletAddress, setwalletAddress] = useState(null);
+  const [tokens, setTokens] = useState([]);
   const canvasRef = useRef(null);
   const [web3, setWeb3] = useState(new Web3(window.ethereum));
   //use effect for running canvas animation
@@ -37,18 +39,28 @@ function App() {
   //event for connecton to meta mask and getting the wallet address
   const handleConnection = async () => {
     if (isConnected) {
-      console.log(window.ethereum);
       setIsConnected(false);
     } else {
       await requestAccounts();
       const account = await web3.eth.getAccounts(); //getting the walllet address
-      console.log(account);
       if (account) {
         setIsConnected(true);
-        setWalletAdress(account);
+        setwalletAddress(account);
+        try {
+          const Tokens = await axios.get(
+            `http://localhost:5000/wallet/${account}/${chain}`
+          );
+          setTokens(Tokens.data);
+          console.log(tokens);
+        } catch (e) {
+          console.log(e);
+        }
       }
     }
   };
+  const handleChainChange=()=>{
+    
+  }
   return (
     <div className="Container">
       {/* canvas animation */}
@@ -57,13 +69,20 @@ function App() {
       <Header
         connectionHandler={handleConnection}
         isConnected={isConnected}
+        chain={chain}
+        setIsselctorActive={setIsselctorActive}
       ></Header>
       {/* wallet information */}
-      <WalletInfo />
+      <WalletInfo chain={chain} tokens={tokens} walletAddress={walletAddress} />
       {/* tokens */}
-      <Tokens></Tokens>
+      <Tokens tokens={tokens}></Tokens>
       {/* chain selector */}
-      {isSelectorActive ? <ChainSelector /> : null}
+      {isSelectorActive ? (
+        <ChainSelector
+          setChain={setChain}
+          setIsselctorActive={setIsselctorActive}
+        />
+      ) : null}
     </div>
   );
 }

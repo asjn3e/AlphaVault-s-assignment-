@@ -53,18 +53,33 @@ async function getData(address, requestedChain) {
     address,
     chain,
   });
-  let token = tokenBalances.raw.filter((token) => token.possible_spam != true);
+  // remove spam tokens
+  let token = tokenBalances.raw.filter(
+    (token) => token.possible_spam != true && token.logo != null
+  );
+
+  //get the price of the token remove decimals from the balances
   for (let i = 0; i <= token.length; i++) {
     if (token[i]) {
       const response = await Moralis.EvmApi.token.getTokenPrice({
         address: token[i].token_address,
         chain,
       });
+
       token[i].price = response.raw.usdPrice;
+
+      token[i].balance = token[i].balance / Math.pow(10, token[i].decimals);
+
+      //round the decimals
+      token[i].balance = token[i].balance.toFixed(5);
+
+      //convert the balance into usd price
+      token[i].balanceIntoUSD = token[i].balance * token[i].price;
+
+      //round the balance into usd into at 5 decimals at max
+      token[i].balanceIntoUSD = token[i].balanceIntoUSD.toFixed(5);
     }
   }
-
-  //Getting tokens balances
 
   return token;
 }

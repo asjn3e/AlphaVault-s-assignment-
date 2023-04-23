@@ -1,7 +1,15 @@
 import React, { Component } from "react";
 import { useState } from "react";
 
-function Header({ connectionHandler, isConnected }) {
+function Header({ connectionHandler, isConnected, setIsselctorActive, chain }) {
+  const selectChainImage = () => {
+    if (chain == "eth") {
+      return "ethereum.png";
+    } else if (chain == "bsc") {
+      return "binance-smart-chain.svg";
+    }
+    return "polygan.png";
+  };
   return (
     <div className="header">
       {/* logo */}
@@ -11,9 +19,15 @@ function Header({ connectionHandler, isConnected }) {
       </div>
       {/* buttons for connecting and disconnecting wallet */}
       <div className="button__container">
-        <button type="select" className="chainBTN">
+        <button
+          type="select"
+          onClick={() => {
+            setIsselctorActive(true);
+          }}
+          className="chainBTN"
+        >
           <p className="chain__text">chain</p>
-          <img src="/ethereum.png" className="chain__image" alt="" />
+          <img src={selectChainImage()} className="chain__image" alt="" />
         </button>
         <button
           onClick={connectionHandler}

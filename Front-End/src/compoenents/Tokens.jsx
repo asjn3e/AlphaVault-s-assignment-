@@ -1,38 +1,26 @@
 import React, { Component } from "react";
 
-function Tokens() {
+function Tokens({ tokens }) {
+  console.log(tokens);
   return (
     <ul className="tokens">
       <li className="token__heading token">
         <p>Symbol</p>
+        <p>name</p>
         <p>Balance</p>
-        <p>Price</p>
         <p>Value</p>
       </li>
-      <li className="token">
-        <img src="/uscd.png" alt="" />
-        <p className="numbers">213123</p>
-        <p className="numbers">312313</p>
-        <p className="numbers">3123212</p>
-      </li>
-      <li className="token">
-        <img src="/uscd.png" alt="" />
-        <p className="numbers"></p>
-        <p className="numbers"></p>
-        <p className="numbers"></p>
-      </li>
-      <li className="token">
-        <img src="/uscd.png" alt="" />
-        <p className="numbers"></p>
-        <p className="numbers"></p>
-        <p className="numbers"></p>
-      </li>
-      <li className="token">
-        <img src="/uscd.png" alt="" />
-        <p className="numbers"></p>
-        <p className="numbers"></p>
-        <p className="numbers"></p>
-      </li>
+      {tokens.map((token) => {
+        return (
+          <li className="token">
+            <img src={token.logo} alt="" />
+            <p className="numbers">{token.symbol}</p>
+
+            <p className="numbers">{token.balance}</p>
+            <p className="numbers">{token.balanceIntoUSD}</p>
+          </li>
+        );
+      })}
     </ul>
   );
 }
