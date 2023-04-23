@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-function ChainSelector({ setChain, setIsselctorActive }) {
+import React from "react";
+function ChainSelector({ setChain, setIsselctorActive, handleChainChange }) {
   return (
     // chaine selector component
     <div className="selector ">
@@ -10,6 +10,7 @@ function ChainSelector({ setChain, setIsselctorActive }) {
           onClick={() => {
             setChain("eth");
             setIsselctorActive(false);
+            handleChainChange("eth");
           }}
           alt="eth"
         />
@@ -18,6 +19,7 @@ function ChainSelector({ setChain, setIsselctorActive }) {
           onClick={() => {
             setChain("bsc");
             setIsselctorActive(false);
+            handleChainChange("bsc");
           }}
           alt=""
         />
@@ -27,6 +29,7 @@ function ChainSelector({ setChain, setIsselctorActive }) {
           onClick={() => {
             setChain("poly");
             setIsselctorActive(false);
+            handleChainChange("poly");
           }}
         />
       </div>

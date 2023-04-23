@@ -1,22 +1,23 @@
-import React, { Component } from "react";
-function WalletInfo({ tokens, chain, walletAddress }) {
+import React from "react";
+function WalletInfo({ tokens, chain, walletAddress, taotalBalance }) {
   return (
-    // data table for information
+    // information sections
     <div className="details">
+      {/* total balance */}
       <div className="detail">
         <p>Total Balance :</p>
         <h3 className="details--first">
-          {tokens.length != 0
-            ? tokens.reduce((previousValue, currentValue) => {
-                previousValue += currentValue;
-              })
-            : "0"}
+          {taotalBalance}
         </h3>
       </div>
+
+      {/* chain */}
       <div className="detail">
         <p>Chain :</p>
         <h3 className="details--second">{chain}</h3>
       </div>
+
+      {/* wallet address */}
       <div className="detail">
         <p>wallet Adress :</p>
         <h3 className="details--third">
@@ -30,6 +31,8 @@ function WalletInfo({ tokens, chain, walletAddress }) {
           }
         </h3>
       </div>
+
+      {/* number of tokens */}
       <div className="detail">
         <p>number of tokens :</p>
         <h3 className="details--forth">{tokens.length || 0}</h3>

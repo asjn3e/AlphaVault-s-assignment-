@@ -6,7 +6,9 @@ const { EvmChain } = require("@moralisweb3/common-evm-utils");
 
 const app = express();
 const port = 5000;
+const cors = require("cors");
 
+app.use(cors());
 Moralis.start({
   apiKey: "f3pTmwFHKJJ00wZfvNSQfQGwQM9c6kFA1CZiISy3IQBRC5HbfMNvEpA1ADwYM0oM",
 });
@@ -16,7 +18,7 @@ app.get("/wallet/:walletAddress/:chain", async (req, res) => {
   try {
     // Get and return the crypto data
     const data = await getData(req.params.walletAddress, req.params.chain);
-
+    console.log(req.params.chain);
     res.status(200);
     res.json(data);
   } catch (error) {
@@ -42,9 +44,12 @@ async function getData(address, requestedChain) {
   let chain = EvmChain.ETHEREUM;
   if (requestedChain == "eth") {
     chain = EvmChain.ETHEREUM;
+    console.log("eth");
   } else if (requestedChain == "bsc") {
     chain = EvmChain.BSC;
+    console.log("bsc");
   } else {
+    console.log("poly");
     chain = EvmChain.POLYGON;
   }
 
@@ -54,9 +59,7 @@ async function getData(address, requestedChain) {
     chain,
   });
   // remove spam tokens
-  let token = tokenBalances.raw.filter(
-    (token) => token.possible_spam != true && token.logo != null
-  );
+  let token = tokenBalances.raw.filter((token) => token.possible_spam != true);
 
   //get the price of the token remove decimals from the balances
   for (let i = 0; i <= token.length; i++) {

@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-import { useState } from "react";
+import React from "react";
 
 function Header({ connectionHandler, isConnected, setIsselctorActive, chain }) {
   const selectChainImage = () => {
@@ -10,6 +9,7 @@ function Header({ connectionHandler, isConnected, setIsselctorActive, chain }) {
     }
     return "polygan.png";
   };
+
   return (
     <div className="header">
       {/* logo */}
@@ -17,8 +17,10 @@ function Header({ connectionHandler, isConnected, setIsselctorActive, chain }) {
         <img src="/logo.svg" className="logo" alt="" />
         <p className="logotype">Alpha Vault</p>
       </div>
+
       {/* buttons for connecting and disconnecting wallet */}
       <div className="button__container">
+        {/* button for selecting chain */}
         <button
           type="select"
           onClick={() => {
@@ -29,6 +31,8 @@ function Header({ connectionHandler, isConnected, setIsselctorActive, chain }) {
           <p className="chain__text">chain</p>
           <img src={selectChainImage()} className="chain__image" alt="" />
         </button>
+
+        {/* button for connecting and disconnecting to the wallet */}
         <button
           onClick={connectionHandler}
           className="header__button connectBTN"
