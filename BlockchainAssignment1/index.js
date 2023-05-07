@@ -1,8 +1,8 @@
-const ethers = require('ethers');
-const mongoose = require('mongoose');
+const ethers = require("ethers");
+const mongoose = require("mongoose");
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost/blockchain-watcher');
+mongoose.connect("mongodb://localhost/blockchain-watcher");
 
 // Create the Block schema
 const BlockSchema = new mongoose.Schema({
@@ -24,28 +24,31 @@ const TransactionSchema = new mongoose.Schema({
 });
 
 // Create the Block model
-const Block = mongoose.model('Block', BlockSchema);
+const Block = mongoose.model("Block", BlockSchema);
 
 // Create the Transaction model
-const Transaction = mongoose.model('Transaction', TransactionSchema);
+const Transaction = mongoose.model("Transaction", TransactionSchema);
 
 // Create the Metamask wallet
-const mnemonic = 'report slender song fault addict shock purpose weird crime blush stage blanket';
-const wallet = ethers.Wallet.fromMnemonic(mnemonic).connect(
-  new ethers.providers.JsonRpcProvider('https://sepolia.testnet.ethereum.org')
+const mnemonic =
+  "report slender song fault addict shock purpose weird crime blush stage blanket";
+const wallet = ethers.Wallet.fromPhrase(mnemonic).connect(
+  new ethers.providers.JsonRpcProvider("https://sepolia.testnet.ethereum.org")
 );
 
 // Generate 100 new addresses from the wallet
-const addresses = Array.from(Array(100).keys()).map(i =>
-  wallet.derivePath(`m/44'/60'/0'/0/${i}`).address
+const addresses = Array.from(Array(100).keys()).map(
+  (i) => wallet.derivePath(`m/44'/60'/0'/0/${i}`).address
 );
 
 // Listen for new blocks and transactions
-const provider = new ethers.providers.JsonRpcProvider('https://sepolia.testnet.ethereum.org');
-provider.on('block', async blockNumber => {
+const provider = new ethers.providers.JsonRpcProvider(
+  "https://sepolia.testnet.ethereum.org"
+);
+provider.on("block", async (blockNumber) => {
   const block = await provider.getBlock(blockNumber);
   const timestamp = new Date(block.timestamp * 1000);
-  
+
   // Insert the block into the database
   const existingBlock = await Block.findOne({ id: block.number });
   if (!existingBlock) {
@@ -57,11 +60,11 @@ provider.on('block', async blockNumber => {
     });
     await newBlock.save();
   }
-  
+
   // Check each transaction in the block
   for (const tx of block.transactions) {
     const txInfo = await provider.getTransaction(tx);
-    
+
     // If the transaction is to one of our addresses, insert it into the database
     if (addresses.includes(txInfo.to)) {
       const existingTx = await Transaction.findOne({ tx_hash: tx });
