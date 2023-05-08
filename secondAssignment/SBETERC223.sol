@@ -1,10 +1,13 @@
 // SPDX-License-Identifier: GPL-3.0
-pragma solidity >=0.7.0 <0.9.0;
+pragma solidity ^0.8.0;
 
 contract SBETERC223 {
-
     event Transfer(address indexed from, address indexed to, uint tokens);
-    event Approval(address indexed tokenOwner, address indexed spender, uint tokens);
+    event Approval(
+        address indexed tokenOwner,
+        address indexed spender,
+        uint tokens
+    );
 
     string public constant name = "SBETERC223";
     string public constant symbol = "SBT";
@@ -12,17 +15,17 @@ contract SBETERC223 {
 
     mapping(address => uint256) balances;
 
-    mapping(address => mapping (address => uint256)) allowed;
+    mapping(address => mapping(address => uint256)) allowed;
 
     uint256 totalSupply_;
 
     constructor(uint256 total) {
-      totalSupply_ = total;
-      balances[msg.sender] = totalSupply_;
+        totalSupply_ = total;
+        balances[msg.sender] = totalSupply_;
     }
 
     function totalSupply() public view returns (uint256) {
-      return totalSupply_;
+        return totalSupply_;
     }
 
     function balanceOf(address tokenOwner) public view returns (uint) {
@@ -43,11 +46,18 @@ contract SBETERC223 {
         return true;
     }
 
-    function allowance(address owner, address delegate) public view returns (uint) {
+    function allowance(
+        address owner,
+        address delegate
+    ) public view returns (uint) {
         return allowed[owner][delegate];
     }
 
-    function transferFrom(address owner, address buyer, uint numTokens) public returns (bool) {
+    function transferFrom(
+        address owner,
+        address buyer,
+        uint numTokens
+    ) public returns (bool) {
         require(numTokens <= balances[owner]);
         require(numTokens <= allowed[owner][msg.sender]);
 
