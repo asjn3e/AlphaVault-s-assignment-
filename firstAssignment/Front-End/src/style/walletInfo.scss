@@ -1,0 +1,122 @@
+.details {
+    width: 80%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 0.5rem;
+
+    div {
+        background: rgba(158, 147, 147, 0.35);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        padding: 1rem 1rem;
+        p {
+            color: white;
+            font-weight: 400;
+            font-size: 0.5rem;
+        }
+        h3 {
+            font-size: 1rem;
+            margin-top: 0.5rem;
+        }
+        .details--first {
+            color: rgb(0, 222, 219);
+        }
+        .details--second {
+            color: rgb(255, 0, 132);
+        }
+        .details--third {
+            color: rgb(132, 62, 161);
+        }
+        .details--forth {
+            color: rgb(0, 222, 219);
+        }
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .details {
+        width: 80%;
+        margin: auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 1rem;
+
+        div {
+            background: rgba(158, 147, 147, 0.35);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            padding: 1rem 1rem;
+            p {
+                color: white;
+                font-weight: 400;
+                font-size: 1rem;
+            }
+            h3 {
+                font-size: 1.7rem;
+                margin-top: 1rem;
+            }
+            .details--first {
+                color: rgb(0, 222, 219);
+            }
+            .details--second {
+                color: rgb(255, 0, 132);
+            }
+            .details--third {
+                color: rgb(132, 62, 161);
+            }
+            .details--forth {
+                color: rgb(0, 222, 219);
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .details {
+        
+        width: 70%;
+        margin: 3rem auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-gap: 1rem;
+
+        div {
+            background: rgba(158, 147, 147, 0.35);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            padding: 1rem 1rem;
+            p {
+                color: white;
+                font-weight: 400;
+                font-size: 1rem;
+            }
+            h3 {
+                font-size: 1.7rem;
+                margin-top: 1.5rem;
+                font-weight: 600;
+            }
+            .details--first {
+                color: rgb(0, 222, 218);
+            }
+            .details--second {
+                color: rgb(255, 0, 132);
+            }
+            .details--third {
+                color: rgb(132, 62, 161);
+            }
+            .details--forth {
+                color: rgb(0, 222, 219);
+            }
+        }
+    }
+}

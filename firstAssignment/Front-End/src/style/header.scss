@@ -1,0 +1,230 @@
+.header {
+    width: 80%;
+    margin: 1rem auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .header__logo {
+        width: 50%;
+        display: flex;
+        align-items: center;
+        .logo {
+            width: 100%;
+        }
+        .logotype {
+            font-family: Inter;
+            color: white;
+            padding: 1rem;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+    }
+    .button__container {
+        display: flex;
+        justify-content: end;
+
+        .chainBTN {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            background: rgba(209, 202, 202, 0.35);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            width: 40%;
+            .chain__text {
+                color: white;
+                font-weight: 600;
+                font-size: 0.7rem;
+            }
+            img {
+                width: 1rem;
+            }
+        }
+        .connectBTN {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            background: rgba(209, 202, 202, 0.35);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            width: 40%;
+            margin-left: 1rem;
+            padding: 0 1rem;
+            .connect__text {
+                color: white;
+                font-weight: 600;
+                font-size: 0.7rem;
+                padding: 0.3rem 0.5rem;
+            }
+            img {
+                display: none;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .header {
+        width: 80%;
+        margin: 2rem auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .header__logo {
+            width: 40%;
+            display: flex;
+            align-items: center;
+            .logo {
+                width: 25%;
+            }
+            .logotype {
+                font-family: Inter;
+                color: white;
+                padding: 1rem;
+                font-weight: 700;
+                font-size: 1.3rem;
+            }
+        }
+        .button__container {
+            display: flex;
+            justify-content: end;
+
+            .chainBTN {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+                background: rgba(209, 202, 202, 0.35);
+                box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                border-radius: 10px;
+                border: 1px solid rgba(255, 255, 255, 0.18);
+                width: 30%;
+                .chain__text {
+                    color: white;
+                    font-weight: 600;
+                    font-size: 1rem;
+                }
+                img {
+                    width: 1.3rem;
+                }
+            }
+            .connectBTN {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+                background: rgba(209, 202, 202, 0.35);
+                box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                border-radius: 10px;
+                border: 1px solid rgba(255, 255, 255, 0.18);
+                width: 40%;
+                margin-left: 1rem;
+                .connect__text {
+                    color: white;
+                    font-weight: 600;
+                    font-size: 1rem;
+                    padding: 0.5rem 0.5rem;
+                }
+                img {
+                    display: none;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .header {
+        width: 70%;
+        margin: 2rem auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .header__logo {
+            width: 20%;
+            display: flex;
+            align-items: center;
+            .logo {
+                width: 25%;
+            }
+            .logotype {
+                font-family: Inter;
+                color: white;
+                padding: 1rem;
+                font-weight: 700;
+                font-size: 1.3rem;
+            }
+        }
+        .button__container {
+            display: flex;
+            justify-content: end;
+
+            .chainBTN {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+                background: rgba(209, 202, 202, 0.35);
+                box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                border-radius: 10px;
+                border: 1px solid rgba(255, 255, 255, 0.18);
+                width: 30%;
+                padding: 0.5rem 1rem;
+                .chain__text {
+                    color: white;
+                    font-weight: 600;
+                    font-size: 1rem;
+                }
+                img {
+                    width: 2rem;
+                }
+            }
+            .connectBTN {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+                background: rgba(209, 202, 202, 0.35);
+                box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                border-radius: 10px;
+                border: 1px solid rgba(255, 255, 255, 0.18);
+                width: 40%;
+                margin-left: 1rem;
+                .connect__text {
+                    color: white;
+                    font-weight: 600;
+                    font-size: 1rem;
+                    padding: 0.5rem 0.5rem;
+                }
+                img {
+                    display: inline;
+                    width: 10%;
+                }
+            }
+            button:hover {
+                background: rgba(255, 255, 255, 0.496);
+                box-shadow: 0 8px 32px 0 rgba(215, 216, 235, 0.37);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                border-radius: 10px;
+                border: 1px solid rgba(255, 255, 255, 0.18);
+            }
+        }
+    }
+}
