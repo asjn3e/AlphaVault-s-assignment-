@@ -23,10 +23,9 @@ contract Vesting {
         uint256 _vestingStartTime,
         address _founderWallet,
         address _advisorAddress,
-        address _teamAddress,
-        address _tokenContractAddress
+        address _teamAddress
     ) {
-        token = SBETERC223(0xc22062447e742e45F6f2fda32Aa65275b914e544);
+        token = SBETERC223(0xA0401bC368E51472F4c321a4A02E55D7f4B570E9);
         founderWallet = _founderWallet;
         advisorAddress = _advisorAddress;
         teamAddress = _teamAddress;
