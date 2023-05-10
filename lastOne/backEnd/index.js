@@ -7,7 +7,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const mongoURI = "mongodb://localhost:27017/Dashboard"; // replace with your own MongoDB connection string
 
-const { User } = require("./db/schema"); // importing your models from separate file
+const { User, Product } = require("./db/schema"); // importing your models from separate file
 
 const { authorizeUser } = require("./middleware/middleware");
 
@@ -112,6 +112,16 @@ app.put("/users/:id", authorizeUser, async (req, res) => {
 });
 
 // define the get all products API endpoint with auth middleware
+app.get("/users", authorizeUser, async (req, res) => {
+  try {
+    const users = await User.find();
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// define the get all products API endpoint with auth middleware
 app.get("/products", authorizeUser, async (req, res) => {
   try {
     const products = await Product.find();
@@ -134,17 +144,19 @@ app.delete("/products/:id", authorizeUser, async (req, res) => {
   }
 });
 
-app.post("/products", authorizeUser, async (req, res) => {
+app.post("/products", async (req, res) => {
   try {
-    const { name, price, numInStock } = req.body;
+    console.log(req.body);
+    const { name, price, numberInStock } = req.body;
     const newProduct = new Product({
       name,
       price,
-      numInStock,
+      numberInStock,
     });
     const savedProduct = await newProduct.save();
     res.json(savedProduct);
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: error.message });
   }
 });

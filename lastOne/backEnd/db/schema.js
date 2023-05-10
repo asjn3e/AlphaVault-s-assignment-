@@ -40,4 +40,4 @@ const User = mongoose.model("User", userSchema);
 const Product = mongoose.model("Product", productSchema);
 
 module.exports.User = User;
-module.exports.Product = User;
+module.exports.Product = Product;
