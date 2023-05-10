@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { setToken, setUser } from "../features/userSlice";
+import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 const Register = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -54,6 +60,10 @@ const Register = () => {
           "http://localhost:5000/register",
           formData
         );
+
+        dispatch(setToken(response.data.token));
+        dispatch(setUser(response.data.user));
+        history.push("/dashboard");
       } catch (error) {
         console.log(error.response.data.message);
         setFormErrors({

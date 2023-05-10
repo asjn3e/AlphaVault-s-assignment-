@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setToken, setUser } from "../features/userSlice";
+import { useHistory } from "react-router-dom";
+
 const Login = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -36,10 +43,13 @@ const Login = () => {
       // send form data to backend
       try {
         const response = await axios.post(
-          "http://localhost:5000/register",
+          "http://localhost:5000/login",
           formData
         );
-        
+
+        dispatch(setToken(response.data.token));
+        dispatch(setUser(response.data.user));
+        history.push("/dashboard");
       } catch (error) {
         setFormErrors({
           ...formErrors,

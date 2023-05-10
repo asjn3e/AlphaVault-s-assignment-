@@ -51,7 +51,7 @@ app.post("/register", async (req, res) => {
     const savedUser = await newUser.save();
     // generate a JWT token with the user ID and return it in the response
     const token = jwt.sign({ user: savedUser }, jwtSecret);
-    res.json({ token });
+    res.json({ user: savedUser, token });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message });
@@ -106,6 +106,44 @@ app.put("/users/:id", authorizeUser, async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
     res.json(updatedUser);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// define the get all products API endpoint with auth middleware
+app.get("/products", authorizeUser, async (req, res) => {
+  try {
+    const products = await Product.find();
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// define the delete product API endpoint with auth middleware
+app.delete("/products/:id", authorizeUser, async (req, res) => {
+  try {
+    const deletedProduct = await Product.findByIdAndDelete(req.params.id);
+    if (!deletedProduct) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+    res.json(deletedProduct);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+app.post("/products", authorizeUser, async (req, res) => {
+  try {
+    const { name, price, numInStock } = req.body;
+    const newProduct = new Product({
+      name,
+      price,
+      numInStock,
+    });
+    const savedProduct = await newProduct.save();
+    res.json(savedProduct);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
