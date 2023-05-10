@@ -1,13 +1,20 @@
 const express = require("express");
 const mongoose = require("mongoose");
-
+const cors = require("cors");
 const app = express();
 const port = 5000;
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const mongoURI = "mongodb://localhost:27017/Dashboard"; // replace with your own MongoDB connection string
 
 const { User } = require("./db/schema"); // importing your models from separate file
 
 const { authorizeUser } = require("./middleware/middleware");
+
+app.use(cors());
+app.use(express.json());
+
+const jwtSecret = "mysecretkey";
 
 // connect to MongoDB database
 mongoose
@@ -21,6 +28,34 @@ mongoose
 // start the server
 app.listen(port, () => {
   console.log(`Server started on port ${port}`);
+});
+
+app.post("/register", async (req, res) => {
+  try {
+    console.log(req.body);
+    const { email, password, name } = req.body;
+    // check if email already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: "Email already exists" });
+    }
+    // hash the password and create a new user object
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = new User({
+      email,
+      password: hashedPassword,
+      name,
+      isAdmin: false,
+    });
+    // save the new user object to the databasejwtSecret
+    const savedUser = await newUser.save();
+    // generate a JWT token with the user ID and return it in the response
+    const token = jwt.sign({ user: savedUser }, jwtSecret);
+    res.json({ token });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: error.message });
+  }
 });
 
 // define the login API endpoint
